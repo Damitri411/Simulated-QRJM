@@ -7,11 +7,18 @@ link : https://www.researchgate.net/publication/383265217_A_quantile-regression_
 
 Simulation code in : Simulation QRJM.R
 Plots : 
+
 (1) Data contour plot 
+
 (2) Convergence plot (to show parameter convergence) 
+
 (3) Longitudinal plot for the estimated qunatiles
+
 (4) Estimated survival plots
+
 (5) Parameter significance plots (based on 95% credible set).
+
+#Plots and their meaning
 
 Quantile_Vs_tau : shows no quantile crossing
 
@@ -35,4 +42,4 @@ Survival : Estimated non relapse probabilities for various quantiles
 
 
 
-Lon
+
