@@ -12,3 +12,27 @@ Plots :
 (3) Longitudinal plot for the estimated qunatiles
 (4) Estimated survival plots
 (5) Parameter significance plots (based on 95% credible set).
+
+Quantile_Vs_tau : shows no quantile crossing
+
+Multi-normal_QQ_plot : serves as a motivation for joint modeling, citing deviation from bivariate normality
+
+Contour : Shows the bivariate -density of mean responses across subjects.
+
+Medicine : shows the estimate and 95% CI for the "betas" corresponding to the medicine in the longitudinal submodel across quantiles
+
+Fixed_Var : Tile plot for showing significance of coefficients for each "fixed variable" across (submodel X quantile)
+
+Association_Convergence : Plot showing convergence of the association parameter estimates (note: on an average Gelman-Rubin convergence stat < 1.1)
+
+Association: shows the estimate and 95% CI for the "psis" corresponding to the medicine in the survival submodel across quantiles
+
+Longitudinal : Estimated bi-variate longitudinal quantiles across time for various quantiles
+
+Survival : Estimated non relapse probabilities for various quantiles
+
+
+
+
+
+Lon
