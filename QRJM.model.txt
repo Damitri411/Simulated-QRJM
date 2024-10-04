@@ -1,0 +1,121 @@
+
+model {
+
+for(i in 1:n) 
+{
+ #BM Process
+ #----------
+ u[offset_Pr[i],1:ncy] ~ dmnorm(ze[],D_inv[,])
+ Process[offset_Pr[i],1:ncy] = u[offset_Pr[i],1:ncy] * ProS[offset_Pr[i],3]
+ 
+ for( w in (offset_Pr[i]+1):(offset_Pr[i+1]-1))
+ {
+ u[w,1:ncy] ~ dmnorm(ze[],D_inv[,])
+ Process[w,1:ncy] = Process[(w-1),1:ncy] + u[w,1:ncy] * ProS[w,3]
+ }
+ 
+ 
+ #Longitudinal Process
+ #---------------------
+for( j in offset[i]:(offset[i+1]-1))
+ {
+ 
+ for(k in 1:ncy)
+    {
+    #Exponential variable
+    Ex[j,k] ~ dexp(lambda[k])
+    
+    #mean
+    mu[j,k] =  inprod(b[k,1:(ncX-1)], X[j,2:ncX]) +  Process[ProL[j,2],k]  + t1[k]*Ex[j,k]
+    tau[j,k] = lambda[k]/(t2[k]*Ex[j,k])
+    y[j,(2+k)] ~ dnorm(mu[j,k], tau[j,k])
+
+    } #loop of k
+  } #loop of j
+
+ 
+ 
+ #Survival part 1
+ #---------------
+ 
+ #log.h0T[i] = gam.h0 #Baseline log hazard
+ theta.W[i] = inprod(theta[1:(ncW-1)],W[i,2:ncW]) #Baseline Covariate 
+ for(k in 1:ncy)
+ {
+ muT[i,k] = inprod(b[k,1:(ncX-1)],XT[i,2:ncXT]) +  Process[(offset_Pr[i+1]-1),k]  #Fixed part of Longitudinal
+ } 
+ 
+ 
+ #Survival part 2
+ #---------------
+ 
+ for(l in 1:K)
+  {
+  #log.h0s[i,l] = gam.h0 #Baseline log hazard
+  for(k in 1:ncy)
+ {
+ mus[i,k,l] = inprod(b[k,1:(ncX-1)],Xs[(K*(i-1)+l),2:ncXs]) +  Process[((i-1)*(K+1) +1+l),k]  #Fixed part of Longitudinal
+ } 
+  SurvLong[i,l] = (wk[l]* exp(gam.h0  + inprod(psi[1:ncy], mus[i,1:ncy,l])))
+
+  }
+
+  
+  #Zeros trick in JAGS for JM
+  #---------------------------------
+  phi[i] = C- ((event[i]*(gam.h0 + theta.W[i] + inprod(psi[1:ncy],muT[i,1:ncy]))) -exp(theta.W[i]) * P[i]* sum(SurvLong[i,1:K]))
+  zeros[i] ~ dpois(phi[i])
+}#loop of i
+
+#Prior
+#-------------------------------------
+  #Exponential parameter
+  #-----------------------------------
+  for(k in 1:ncy)
+  {
+  lambda[k] ~ dgamma(0.001,0.001)
+  sig[k] = 1/lambda[k]
+  }
+  
+  
+  #Cov matrix for BM Processes
+  #-----------------------------------
+ 
+  D_inv[1:ncy,1:ncy] ~ dwish(Omega[,], (ncy+1))
+  D[1:ncy,1:ncy] <-inverse(D_inv[1:ncy,1:ncy])
+  
+  #Beta
+  #-----
+  #Polynomial and medicine and fixed variables
+  #-------------------------------------------
+  for(k in 1:ncy)
+  {
+  for (j in 1:(ncX-1)) {
+   b[k,j] ~ dnorm(0,0.001)
+  }
+  }
+  
+
+  #psi
+  #-----
+  for(k in 1:ncy)
+  {
+  psi[k] ~ dnorm(0,0.001)
+  }
+
+  #theta
+  #-----
+  for(h in 1:(ncW-1))
+  {
+  theta[h] ~  dnorm(0,0.001)
+  }
+  
+  
+  
+  #Prior for penalized B-spline basis coefficients
+  #------------------------------------------------
+  gam.h0 ~  dmnorm(0,1000)
+
+  
+}
+
