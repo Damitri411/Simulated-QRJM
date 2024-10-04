@@ -120,17 +120,6 @@ T_set=matrix(c(0.25,0.25,
 
 #psi
 
-library(readxl)
-library(stringr)
-library(dplyr)
-library(base)
-library(stats)
-require(gridExtra)
-library(graphics)
-library(ggpubr)
-library(MASS)
-library(grid)
-library(RColorBrewer)
 
 
 fp="C:/Users/Damitri/Desktop/Experiment JM/EXP_JAGS"
@@ -198,17 +187,7 @@ p
 
 
 #beta medicine
-library(readxl)
-library(stringr)
-library(dplyr)
-library(base)
-library(stats)
-require(gridExtra)
-library(graphics)
-library(ggpubr)
-library(MASS)
-library(grid)
-library(RColorBrewer)
+
 
 
 fp="C:/Users/Damitri/Desktop/Experiment JM/EXP_JAGS"
@@ -294,25 +273,7 @@ ggarrange(p1, p2,ncol=1,nrow=2,common.legend = TRUE,legend="right")
 
 
 
-
-
-
-
-
-
-
 #Significance Polarity
-library(readxl)
-library(stringr)
-library(dplyr)
-library(base)
-library(stats)
-require(gridExtra)
-library(graphics)
-library(ggpubr)
-library(MASS)
-library(grid)
-library(RColorBrewer)
 
 
 fp="C:/Users/Damitri/Desktop/Experiment JM/EXP_JAGS"
@@ -412,17 +373,6 @@ grid.arrange(p1,p2,p4,legend,ncol=2,nrow=2)
 
 
 #Survival
-library(readxl)
-library(stringr)
-library(dplyr)
-library(base)
-library(stats)
-require(gridExtra)
-library(graphics)
-library(ggpubr)
-library(MASS)
-library(grid)
-library(RColorBrewer)
 
 
 fp="C:/Users/Damitri/Desktop/Experiment JM/EXP_JAGS"
@@ -767,19 +717,7 @@ saveRDS(V,paste(path_out,"/Long_Surv.rds", sep=""))
 
 
 
-library(dplyr)
-library(readxl)
-library(stringr)
-library(dplyr)
-library(base)
-library(stats)
-require(gridExtra)
-library(graphics)
-library(ggpubr)
-library(MASS)
-library(grid)
-library(RColorBrewer)
-library(ggplot2)
+
 
 V1=V%>%
   group_by(Week, tau)%>%
@@ -863,16 +801,7 @@ ggarrange(p1, p2,ncol=2,nrow=1,common.legend = TRUE,legend="bottom")
 
 
 #Convergence plots
-library(stringr)
-library(dplyr)
-library(base)
-library(stats)
-require(gridExtra)
-library(graphics)
-library(ggpubr)
-library(MASS)
-library(grid)
-library(RColorBrewer)
+
 
 fp="C:/Users/Damitri/Desktop/Experiment JM/EXP_JAGS"
 path_out=paste(fp,"/Sim_QRJM",sep="")
