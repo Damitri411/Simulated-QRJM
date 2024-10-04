@@ -5,8 +5,13 @@ Kundu, D. and Das, K., 2024. "A quantile-regression approach to bivariate longit
 
 link : https://www.researchgate.net/publication/383265217_A_quantile-regression_approach_to_bivariate_longitudinal_joint_modeling
 
-Simulation code in : Simulation QRJM.R
-Plots : 
+# A. Simulation code in : Simulation QRJM.R
+
+# B. JAGS model in : QRJM.model.txt
+
+# C. Code for plots are in : Plots.R
+
+# The plots are : 
 
 (1) Data contour plot 
 
@@ -18,7 +23,7 @@ Plots :
 
 (5) Parameter significance plots (based on 95% credible set).
 
-#Plots and their meaning
+# Plots and their meaning
 
 Quantile_Vs_tau : shows no quantile crossing
 
